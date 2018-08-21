@@ -57,6 +57,7 @@ public class BeanDefinitionReaderUtils {
 			String parentName, String className, ClassLoader classLoader) throws ClassNotFoundException {
 
 		GenericBeanDefinition bd = new GenericBeanDefinition();
+		//parentName可能为空
 		bd.setParentName(parentName);
 		if (className != null) {
 			//如果classloader不为空，则以传入的classloader同一虚拟机加载bean对象，否则只是记录类名

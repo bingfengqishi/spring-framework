@@ -12,21 +12,16 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ *//*
+
 
 package org.springframework.beans.factory;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-
 import org.junit.Before;
 import org.junit.Test;
-
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.support.StaticListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
-import org.springframework.cglib.proxy.NoOp;
 import org.springframework.core.io.Resource;
 import org.springframework.tests.sample.beans.ITestBean;
 import org.springframework.tests.sample.beans.IndexedTestBean;
@@ -34,15 +29,22 @@ import org.springframework.tests.sample.beans.TestBean;
 import org.springframework.tests.sample.beans.factory.DummyFactory;
 import org.springframework.util.ObjectUtils;
 
-import static org.junit.Assert.*;
-import static org.springframework.tests.TestResourceUtils.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.springframework.tests.TestResourceUtils.qualifiedResource;
+
+*/
 /**
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @author Chris Beams
  * @since 04.07.2003
- */
+ *//*
+
 public class BeanFactoryUtilsTests {
 
 	private static final Class<?> CLASS = BeanFactoryUtilsTests.class;
@@ -83,9 +85,11 @@ public class BeanFactoryUtilsTests {
 		assertTrue(BeanFactoryUtils.countBeansIncludingAncestors(lbf) == 2);
 	}
 
-	/**
+	*/
+/**
 	 * Check that override doesn't count as two separate beans.
-	 */
+	 *//*
+
 	@Test
 	public void testHierarchicalCountBeansWithOverride() throws Exception {
 		// Leaf count
@@ -290,3 +294,4 @@ public class BeanFactoryUtilsTests {
 	}
 
 }
+*/
