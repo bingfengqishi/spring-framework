@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2018 the original author or authors.
+ * Copyright 2002-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,18 +21,29 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import javax.annotation.Nonnull;
+import javax.annotation.meta.TypeQualifierDefault;
 
 /**
- * Indicates that the annotated element uses Java 8 specific API constructs,
- * without implying that it strictly requires Java 8.
+ * A common Spring annotation to declare that fields are to be considered as
+ * non-nullable by default for a given package.
  *
- * @author Stephane Nicoll
- * @since 4.1
- * @deprecated as of 5.0 since the framework is based on Java 8+ now
+ * <p>Leverages JSR-305 meta-annotations to indicate nullability in Java to common
+ * tools with JSR-305 support and used by Kotlin to infer nullability of Spring API.
+ *
+ * <p>Should be used at package level in association with {@link Nullable}
+ * annotations at field level.
+ *
+ * @author Sebastien Deleuze
+ * @since 5.0
+ * @see NonNullFields
+ * @see Nullable
+ * @see NonNull
  */
-@Retention(RetentionPolicy.CLASS)
-@Target({ElementType.METHOD, ElementType.CONSTRUCTOR, ElementType.TYPE})
+@Target(ElementType.PACKAGE)
+@Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Deprecated
-public @interface UsesJava8 {
+@Nonnull
+@TypeQualifierDefault(ElementType.FIELD)
+public @interface NonNullFields {
 }
