@@ -16,27 +16,6 @@
 
 package org.springframework.jdbc.core;
 
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
-import java.sql.BatchUpdateException;
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.SQLWarning;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import javax.sql.DataSource;
-
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.dao.support.DataAccessUtils;
@@ -50,6 +29,14 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.util.Assert;
 import org.springframework.util.LinkedCaseInsensitiveMap;
 import org.springframework.util.StringUtils;
+
+import javax.sql.DataSource;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+import java.sql.*;
+import java.util.*;
 
 /**
  * <b>This is the central class in the JDBC core package.</b>
@@ -574,19 +561,23 @@ public class JdbcTemplate extends JdbcAccessor implements JdbcOperations {
 			String sql = getSql(psc);
 			logger.debug("Executing prepared SQL statement" + (sql != null ? " [" + sql + "]" : ""));
 		}
-
+		//获取数据库连接
 		Connection con = DataSourceUtils.getConnection(getDataSource());
 		PreparedStatement ps = null;
 		try {
 			ps = psc.createPreparedStatement(con);
+			//应用用户设定的输入参数
 			applyStatementSettings(ps);
+			//调用回调函数
 			T result = action.doInPreparedStatement(ps);
+			//警告处理
 			handleWarnings(ps);
 			return result;
 		}
 		catch (SQLException ex) {
 			// Release Connection early, to avoid potential connection pool deadlock
 			// in the case when the exception translator hasn't been initialized yet.
+			//资源释放
 			if (psc instanceof ParameterDisposer) {
 				((ParameterDisposer) psc).cleanupParameters();
 			}

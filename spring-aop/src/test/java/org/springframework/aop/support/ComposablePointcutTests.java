@@ -16,15 +16,14 @@
 
 package org.springframework.aop.support;
 
-import java.lang.reflect.Method;
-
 import org.junit.Test;
-
 import org.springframework.aop.ClassFilter;
 import org.springframework.aop.MethodMatcher;
 import org.springframework.aop.Pointcut;
 import org.springframework.core.NestedRuntimeException;
 import org.springframework.tests.sample.beans.TestBean;
+
+import java.lang.reflect.Method;
 
 import static org.junit.Assert.*;
 
